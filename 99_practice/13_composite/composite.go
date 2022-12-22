@@ -15,20 +15,12 @@ import "fmt"
 /*
 コンポーネントのインターフェース
 */
-type File struct {
-	name string
-}
-
-func (f *File) search(keyword string) {
-	fmt.Printf("Searching for keyword %s in file %s\n", keyword, f.name)
-}
-
-func (f *File) getName() string {
-	return f.name
+type Component interface {
+	search(string)
 }
 
 /*
-コンポジット
+コンテナ・コンポジット
 */
 type Folder struct {
 	components []Component
@@ -49,8 +41,16 @@ func (f *Folder) add(c Component) {
 /*
 リーフ
 */
-type Component interface {
-	search(string)
+type File struct {
+	name string
+}
+
+func (f *File) search(keyword string) {
+	fmt.Printf("Searching for keyword %s in file %s\n", keyword, f.name)
+}
+
+func (f *File) getName() string {
+	return f.name
 }
 
 /*
